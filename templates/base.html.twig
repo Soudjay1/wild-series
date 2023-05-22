@@ -8,13 +8,14 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-        {% include ("_navbar.html.twig") %}
+
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
-
-    {% block body %}{% endblock %}
+    {% include ("_navbar.html.twig") %}
+    {% block body %}
+    {% endblock %}
     </body>
 </html>
