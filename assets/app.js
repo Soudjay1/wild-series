@@ -39,3 +39,9 @@ document.addEventListener('turbo:load', function (e) {
     });
 });
 console.log('Hello Webpack Encore !')
+
+// returns the final, public path to this file
+// path is relative to this file - e.g. assets/images/logo.png
+//import logoPath from '..//';
+
+//let html = `<img src="${logoPath}" alt="">`;
