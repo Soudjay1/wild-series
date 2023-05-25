@@ -4,13 +4,11 @@
 
 {% block body %}
     <h1>Toutes les catégories de la table category : </h1>
-    {% for category in categories %}
+    {% for category in category %}
         <div>
-            <h2>{{ loop.index }} / {{ program.title }} - Catégorie : {{ program.category.name }}</h2>
-            <p>{{ program.synopsis }}</p>
-            {# Lien vers la fiche de la série : #}
-            <a href="{{ path("program_show", { id: program.id })}}">Voir la fiche</a>
-        </div>
+            <h2>{{ loop.index }} / - Catégorie : {{ category.name }}</h2>
+            <a href="{{ path("category_show", { id: category.id }) }}">Voir la catégorie</a>
+        </div><br>
     {% else %}
         Aucune catégorie trouvée.
     {% endfor %}
