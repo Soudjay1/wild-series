@@ -28,7 +28,6 @@ class AppFixtures extends Fixture
             $categories[] = $category;
         }
 
-
         for ($i = 0; $i < 6; $i++) {
             $program = new Program();
             $program
