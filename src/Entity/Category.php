@@ -3,8 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\Collection;
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
@@ -15,6 +16,9 @@ class Category
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Program::class)]
+    private Collection $programs;
 
     public function getId(): ?int
     {
