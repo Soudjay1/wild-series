@@ -2,6 +2,7 @@
 // src/Controller/ProgramController.php
 namespace App\Controller;
 use App\Repository\ProgramRepository;
+use App\Repository\SeasonNumberRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,18 +10,15 @@ use Symfony\Component\Routing\Annotation\Route;
 Class ProgramController extends AbstractController
 {
     #[Route('/{id}/', name: 'show', requirements: ['id'=>'\d+'], methods: ['GET'])]
-    public function show(int $id, ProgramRepository $programRepository):Response
+    public function show(int $id, ProgramRepository $programRepository ,SeasonNumberRepository $seasonNumberRepository):Response
     {
-        $program = $programRepository->findOneBy(['id' => $id]);
+        $program = $programRepository->find(['id' => $id]);
+        $seasonNumbers = $seasonNumberRepository->findAll();
 
-        if (!$program) {
-            throw $this->createNotFoundException(
-                'No program with id : '.$id.' found in program\'s table.'
-            );
-        }
         return $this->render('program/show.html.twig', [
-            'program' => $program,
+            'program' => $program,'seasonNumbers' => $seasonNumbers
         ]);
+
     }
 
     #[Route('/', name: 'index')]
@@ -33,5 +31,18 @@ Class ProgramController extends AbstractController
             ['programs' => $programs]
         );
     }
+    #[Route('/{programId}/seasons/{seasonId}/', name: 'season_show',methods: ['GET'])]
+    public function showSeason(int $programId, int $seasonId , ProgramRepository $programRepository,SeasonNumberRepository $seasonNumberRepository ):Response
+    {
+        {
+            $programId = $programRepository->find($programId);
+            $seasonNumberId = $seasonNumberRepository->find($seasonId);
 
+            return $this->render('program/season_show.html.twig', [
+                'program' => $programId,
+                'seasonNumber' => $seasonNumberId
+            ]);
+        }
+
+}
 }

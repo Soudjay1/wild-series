@@ -30,12 +30,12 @@ class AppFixtures extends Fixture
 
         }
 
-
         // Program
 
         $programs = [];
          $categoryEntities[] = $category;
         for ($i = 0; $i < 20; $i++) {
+
             $program = new Program();
             $program
                 ->setTitle($faker->sentence($nbWords = 10, $variableNbWords = true))

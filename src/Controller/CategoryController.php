@@ -21,7 +21,6 @@ public function index(CategoryRepository $categoryRepository):Response
     {
         $categories = $categoryRepository->findBy(['id' => $id],['id' => 'DESC'],3);
 
-
         return $this->render('category/show.html.twig', [
             'categories' => $categories,
         ]);
