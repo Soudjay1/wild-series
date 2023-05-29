@@ -3,11 +3,10 @@
 {% block title %}All Category{% endblock %}
 
 {% block body %}
-    <h1>Toutes les séries de la table category : </h1>
 
     {% for category in categories %}
         <div>
-            <h2>  Série : {{ category.name }} - {{ category.id}} -  </h2>
+            <h1>Toutes les séries de la categorie : {{ category.name }} </h1>
         </div>
     {% else %}
         Aucune catégorie trouvée.
