@@ -12,6 +12,10 @@
         Aucune catégorie trouvée.
     {% endfor %}
 
+    {% for program in programs %}
+       <p>   {{ program.title }} </p>
+    {% endfor %}
+
     <a href="{{ path('category_index') }}">
         Retour à la liste des categories
     </a>
