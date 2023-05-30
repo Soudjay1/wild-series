@@ -1,6 +1,8 @@
 <?php
 // src/Controller/ProgramController.php
 namespace App\Controller;
+use App\Entity\Program;
+use App\Entity\SeasonNumber;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonNumberRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,13 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 Class ProgramController extends AbstractController
 {
     #[Route('/{id}/', name: 'show', requirements: ['id'=>'\d+'], methods: ['GET'])]
-    public function show(int $id, ProgramRepository $programRepository ,SeasonNumberRepository $seasonNumberRepository):Response
+    public function show( Program $program ,SeasonNumber $seasonNumber):Response
     {
-        $program = $programRepository->find(['id' => $id]);
-        $seasonNumbers = $seasonNumberRepository->findAll();
-
         return $this->render('program/show.html.twig', [
-            'program' => $program,'seasonNumbers' => $seasonNumbers
+            'program' => $program,'seasonNumber' => $seasonNumber
         ]);
 
     }
