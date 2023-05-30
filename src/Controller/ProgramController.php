@@ -43,6 +43,5 @@ Class ProgramController extends AbstractController
                 'seasonNumber' => $seasonNumberId
             ]);
         }
-
 }
 }

@@ -38,8 +38,8 @@ class AppFixtures extends Fixture
 
             $program = new Program();
             $program
-                ->setTitle($faker->sentence($nbWords = 10, $variableNbWords = true))
-                ->setSynopsis($faker->sentence($nbWords = 150, $variableNbWords = true))
+                ->setTitle($faker->title())
+                ->setSynopsis($faker->paragraph(true))
                 ->setCategory($categoryEntities[rand(0, count($categoryEntities) - 1)]);
 
             $manager->persist($program);
@@ -49,12 +49,12 @@ class AppFixtures extends Fixture
         // SeasonNumber
 
         $seasonNumbers = [];
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 6; $i++) {
             $seasonNumber = new SeasonNumber();
             $seasonNumber
-                ->setNumber($faker->numberBetween($min = 1, $max = 3))
-                ->setYear($faker->numberBetween($min = 2000, $max = 2020))
-                ->setDescription($faker->sentence($nbWords = 10,$variableNbWords = true))
+                ->setNumber($faker->numberBetween($min = 1, $max = 10))
+                ->setYear($faker->year())
+                ->setDescription($faker->paragraphs(3, true))
                 ->setProgram($programs[rand(0, count($programs) - 1)]);
 
             $manager->persist($seasonNumber);
@@ -63,12 +63,12 @@ class AppFixtures extends Fixture
     }
         // Episode
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 11; $i++) {
             $episode = new Episode();
             $episode
-                ->setEpisodeTitle($faker->title)
+                ->setEpisodeTitle($faker->title())
                 ->setEpisodeNumber($faker->numberBetween($min = 1, $max = 5))
-                ->setEpisodeSynopsis($faker->sentence($nbWords = 80, $variableNbWords = true))
+                ->setEpisodeSynopsis($faker->paragraphs(4,true))
                 ->setSeason($seasonNumbers[rand(0,count($seasonNumbers) - 1)]);
 
             $manager->persist($episode);
