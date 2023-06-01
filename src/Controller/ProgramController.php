@@ -56,16 +56,13 @@ public function new(Request $request, ProgramRepository $programRepository): Res
     }
 
 
-    #[Route('/{programId}/seasons/{seasonId}/', name: 'season_show',methods: ['GET'])]
-    public function showSeason(int $programId, int $seasonId , ProgramRepository $programRepository,SeasonNumberRepository $seasonNumberRepository ):Response
+    #[Route('/{program}/seasons/{seasonNumber}/', name: 'season_show',requirements: ["page"=>"\d+"],methods: ['GET'])]
+    public function showSeason(Program $program,SeasonNumber $seasonNumber ):Response
     {
         {
-            $programId = $programRepository->find($programId);
-            $seasonNumberId = $seasonNumberRepository->find($seasonId);
-
             return $this->render('program/season_show.html.twig', [
-                'program' => $programId,
-                'seasonNumber' => $seasonNumberId
+                'program' => $program,
+                'seasonNumber' => $seasonNumber
             ]);
         }
 }

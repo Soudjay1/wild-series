@@ -28,7 +28,7 @@ class SeasonNumber implements Countable
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'seasonNumbers')]
-    private ?program $program = null;
+    private ?Program $program = null;
 
     #[ORM\OneToMany(mappedBy: 'season', targetEntity: Episode::class)]
     private Collection $episodes;
