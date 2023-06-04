@@ -8,8 +8,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
+     #[UniqueEntity('title',message: 'existe deja')]
 class Program implements Countable
 {
     #[ORM\Id]
@@ -18,19 +21,23 @@ class Program implements Countable
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
-
+    #[Assert\NotBlank(message: 'Ne me laisse pas tout vide')]
+    protected ?string $title;
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $synopsis = null;
+    #[Assert\NotBlank(message: 'Ne me laisse pas tout vide')]
+    #[Assert\Regex(
+        pattern: '/plus belle la vie/',
+        message: 'On parle de vraies séries ici',
+        match: false
+    )]
+    protected ?string $synopsis;
+
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $poster = null;
 
     #[ORM\ManyToOne(inversedBy: 'programs')]
     private ?Category $category = null;
-
-
-
     #[ORM\OneToMany(mappedBy: 'program', targetEntity: SeasonNumber::class)]
     private Collection $seasonNumbers;
 
@@ -157,4 +164,5 @@ class Program implements Countable
         // TODO: Implement count() method.
         return $this->seasonNumbers->count();
     }
+
 }
