@@ -6,7 +6,11 @@
     <h1>Toutes les séries de la table program : </h1>
     {% for program in programs %}
         <div>
-            <h2>{{ loop.index }} / {{ program.title }}  {{ program.category.name }}</h2>
+
+            <h2>{{ loop.index }} / {{ program.title }} {% if program.category is not null %}
+                    {{ program.category.name }}
+                {% endif %}
+            </h2>
 
             <p>{{ program.synopsis }}</p>
             {# Lien vers la fiche de la série : #}
