@@ -47,6 +47,7 @@ class Program implements Countable
     #[ORM\Column(nullable: true)]
     private ?int $yearProgram = null;
 
+
     public function __construct()
     {
         $this->seasonNumbers = new ArrayCollection();
@@ -163,6 +164,17 @@ class Program implements Countable
     {
         // TODO: Implement count() method.
         return $this->seasonNumbers->count();
+    }
+    public function removeProgram(Program $program): self
+    {
+        if ($this->program->removeElement($program)) {
+            // set the owning side to null (unless already changed)
+            if ($program->getSeason() === $this) {
+                $program->setSeason(null);
+            }
+        }
+
+        return $this;
     }
 
 }
