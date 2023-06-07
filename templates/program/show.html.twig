@@ -3,18 +3,18 @@
 {% block title %}Série #{{ program.id }}{% endblock %}
 
 {% block body %}
-       <div class="media">
+     {# <div class="media">
         <img class="align-self-start mr-3" src="\assets\images\neom-ijxWA9RHabI-unsplash.jpg" alt="{{ program.title }} poster">
-        <div class="media-body">
+        <div class="media-body"> #}
 
-<h1 class="mt-0">{{ program.title }}</h1>
+    <h1 class="mt-0">{{ program.title }}</h1>
 <p>{{ program.synopsis }}</p>
 <p>Catégorie : {{ program.category.name }}</p>
 
 {% for seasonNumber in program.seasonNumbers %}
     <h1>Saison disponible:</h1>
  <h2> saison n°{{ seasonNumber.number }} : </h2><br>
-    <a href="{{ path('program_season_show', {'programId': program.id, 'seasonId': seasonNumber.id}) }}">Voir la saison</a><br>
+    <a href="{{ path('program_season_show', {'program': program.id, 'seasonNumber': seasonNumber.id}) }}">Voir la saison</a><br>
     <br>
 {% endfor %}
 

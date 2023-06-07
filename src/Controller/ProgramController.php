@@ -1,5 +1,4 @@
 <?php
-// src/Controller/ProgramController.php
 namespace App\Controller;
 use App\Entity\Program;
 use App\Entity\SeasonNumber;
@@ -29,21 +28,21 @@ public function new(Request $request, ProgramRepository $programRepository): Res
 
     // Create the form, linked with $program
     $form = $this->createForm(ProgramType::class, $program);
-    // Get data from HTTP request
+
     $form->handleRequest($request);
-    // Was the form submitted ?
+
     if ($form->isSubmitted() && $form->isValid()) {
         $programRepository->save($program,true);
 
+        $this->addFlash('success', 'The new program has been created');
         return $this->redirectToRoute('program_index');
-        // Deal with the submitted data
-        // For example : persiste & flush the entity
-        // And redirect to a route that display the result
+
     }
     // Render the form
 
     return $this->render('program/new.html.twig', [
         'form' => $form,
+        'program' => $program,
     ]);
 }
     #[Route('/{id}/', name: 'show', requirements: ['id'=>'\d+'], methods: ['GET'])]
@@ -56,7 +55,7 @@ public function new(Request $request, ProgramRepository $programRepository): Res
     }
 
 
-    #[Route('/{program}/seasons/{seasonNumber}/', name: 'season_show',requirements: ["page"=>"\d+"],methods: ['GET'])]
+    #[Route('/{program}/seasons/{seasonNumber}/', name: 'season_show',requirements: ["seasonNumber"=>"\d+"],methods: ['GET'])]
     public function showSeason(Program $program,SeasonNumber $seasonNumber ):Response
     {
         {

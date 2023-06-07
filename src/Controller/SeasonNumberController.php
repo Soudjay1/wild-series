@@ -71,8 +71,11 @@ class SeasonNumberController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$seasonNumber->getId(), $request->request->get('_token'))) {
             $seasonNumberRepository->remove($seasonNumber, true);
-        }
 
-        return $this->redirectToRoute('season_number_new', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('danger', 'The new season has been deleted');
+
+        }
+        return $this->redirectToRoute('season_number_new');
+
     }
 }
