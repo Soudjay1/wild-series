@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Série #{{ program.id }}{% endblock %}
+{% block title %}Série #{{ program.title }}{% endblock %}
 
 {% block body %}
      {# <div class="media">
@@ -20,5 +20,16 @@
 
 <a href="{{ path('program_index') }}">
 Retour à la liste des programmes
-</a>
+</a><br><br>
+    <strong>Acteurs :</strong>
+    <ul>
+        {% for actor in program.actors %}
+        <a href="{{ path('actor_show', { 'id': actor.id }) }}">
+            <li>{{ actor.name }}</li>
+        </a>
+
+        {% else %}<br><br>
+            <li>Aucun acteur pour cette série</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

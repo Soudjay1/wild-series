@@ -3,6 +3,7 @@ namespace App\Controller;
 use App\Entity\Program;
 use App\Entity\SeasonNumber;
 use App\Form\ProgramType;
+use App\Repository\ActorRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonNumberRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,14 +47,15 @@ public function new(Request $request, ProgramRepository $programRepository): Res
     ]);
 }
     #[Route('/{id}/', name: 'show', requirements: ['id'=>'\d+'], methods: ['GET'])]
-    public function show( Program $program ,SeasonNumber $seasonNumber):Response
+    public function show(int $id, ProgramRepository $programRepository ,SeasonNumberRepository $seasonNumberRepository,ActorRepository $actorRepository):Response
     {
+        $program = $programRepository->find($id);
+        $seasonNumber = $seasonNumberRepository->find($id);
+        $actors = $actorRepository->findAll();
         return $this->render('program/show.html.twig', [
-            'program' => $program,'seasonNumber' => $seasonNumber
+            'program' => $program, 'seasonNumber' => $seasonNumber, 'actors' => $actors
         ]);
-
     }
-
 
     #[Route('/{program}/seasons/{seasonNumber}/', name: 'season_show',requirements: ["seasonNumber"=>"\d+"],methods: ['GET'])]
     public function showSeason(Program $program,SeasonNumber $seasonNumber ):Response
