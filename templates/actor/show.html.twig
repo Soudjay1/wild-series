@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wild -series - Acteurs{% endblock %}
+
+{% block body %}
+
+  <h1>{{ actor.name }}</h1>
+
+    <p>This actor played in:</p>
+    <ul>
+        {% for program in actor.programs %}
+            <div>
+                <li> <a href="/program/{{ program.id }}">Série : {{ program.title }}</a></li>
+            </div>
+
+        {% else %}
+
+            <p>Aucune série disponible</p>
+        {% endfor %}</ul>
+    <a href="{{ path('actor_index') }}">
+        <button >Retour à la liste des acteurs</button>
+    </a>
+
+{% endblock %}

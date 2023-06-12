@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Actor;
 use App\Entity\Category;
 use App\Entity\Episode;
 use App\Entity\Program;
@@ -42,6 +43,7 @@ class AppFixtures extends Fixture
                 ->setSynopsis($faker->paragraph(true))
                 ->setCategory($categoryEntities[rand(0, count($categoryEntities) - 1)]);
 
+
             $manager->persist($program);
             $programs[] = $program;
         }
@@ -73,6 +75,20 @@ class AppFixtures extends Fixture
 
             $manager->persist($episode);
         }
+        // Actor
+        for ($i = 0; $i < 10; $i++) {
+            $actor = new Actor();
+            $actor->setName($faker->name());
+            if (!empty($programs)) {
+                $randomIndices = array_rand($programs, 3);
+                foreach ($randomIndices as $index) {
+                    $actor->addProgram($programs[$index]);
+                }
+            }
+
+            $manager->persist($actor);
+        }
+
         $manager->flush();
-}
+        }
 }

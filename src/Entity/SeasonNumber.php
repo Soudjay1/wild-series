@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-
 use App\Repository\SeasonNumberRepository;
 use Countable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -126,4 +125,5 @@ class SeasonNumber implements Countable
         // TODO: Implement count() method.
         return $this->episodes->count();
     }
+
 }
